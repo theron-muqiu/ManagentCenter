@@ -24,4 +24,9 @@ Thumbs.db
 coverage/
 __pycache__/
 *.py[cod]
-.agents/ai-devlop/
+# Agent 本地配置、技能与执行资料
+.agents/
+.codex/
+.claude/
+AGENTS.md
+CLAUDE.md
