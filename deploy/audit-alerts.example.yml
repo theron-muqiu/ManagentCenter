@@ -1,0 +1,13 @@
+# Loki ruler 示例；日志采集端需将本应用标记为 job=managent-center。
+# 此文件不配置通知接收方，不会自动向外部发送消息。
+groups:
+  - name: managent-center-audit
+    rules:
+      - alert: ManagentCenterAuditWriteFailed
+        expr: sum(count_over_time({job="managent-center"} |= "AUDIT_WRITE_FAILED" [5m])) > 0
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "后台审计记录写入失败"
+          description: "检查原运行日志中的 requestId、logType 和 exceptionType。业务可能已经成功，避免直接重放写请求。"

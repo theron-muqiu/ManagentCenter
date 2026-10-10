@@ -1,0 +1,27 @@
+backend/target/
+frontend/node_modules/
+frontend/dist/
+.env
+*.log
+.local-test.env
+
+# 本地环境与凭据（保留可公开的配置模板）
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+
+# IDE、系统及临时文件
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+coverage/
+__pycache__/
+*.py[cod]
+.agents/ai-devlop/

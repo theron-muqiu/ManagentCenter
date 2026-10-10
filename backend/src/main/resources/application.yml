@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: managent-center
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      connection-timeout: 3000
+      maximum-pool-size: 12
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      username: ${REDIS_USERNAME:}
+      password: ${REDIS_PASSWORD:}
+      timeout: 2s
+      connect-timeout: 2s
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+    time-zone: UTC
+  flyway:
+    clean-disabled: true
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${SERVER_PORT:8080}
+  error:
+    include-message: never
+    include-stacktrace: never
+auth:
+  token-ttl: ${AUTH_TOKEN_TTL}
+bootstrap:
+  username: ${BOOTSTRAP_USERNAME:}
+  password: ${BOOTSTRAP_PASSWORD:}
+audit:
+  trusted-proxies: ${TRUSTED_PROXIES:}
+  write-timeout-seconds: 2
+logging:
+  level:
+    org.springframework.security: WARN

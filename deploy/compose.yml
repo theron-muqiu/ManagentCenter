@@ -1,0 +1,39 @@
+# ManagentCenter 本地依赖：保留已有 Compose 项目标识，以复用现有容器及数据卷。
+name: management-control-local
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?required}
+      MYSQL_USER: ${MYSQL_USER:?required}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?required}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?required}
+    ports:
+      - "127.0.0.1:${MYSQL_PORT:-13316}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    command: ["--default-time-zone=+00:00"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    restart: unless-stopped
+  redis:
+    image: redis:7-alpine
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?required}
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-13379}:6379"
+    volumes:
+      - redis-data:/data
+    command: ["sh", "-c", "exec redis-server --appendonly yes --requirepass \"$$REDIS_PASSWORD\""]
+    healthcheck:
+      test: ["CMD-SHELL", "REDISCLI_AUTH=\"$$REDIS_PASSWORD\" redis-cli ping | grep -q PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+volumes:
+  mysql-data:
+  redis-data:
