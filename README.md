@@ -2,9 +2,9 @@
 
 前后端分离的基础管理网站，覆盖登录、本人改密、用户资料与启停、管理员重置密码、角色管理、用户角色分配、角色权限分配、操作记录和登录日志。暂不包含业务模块。
 
-首次版本：`v0.1.0`。参见 [首版说明](docs/releases/v0.1.0.md) 和 [分支管理规范](docs/分支管理.md)。稳定版本维护在 `main`，日常开发集成在 `develop`。
+首次版本：`v0.1.0`。稳定版本维护在 `main`，日常开发集成在 `develop`。功能开发从 `develop` 创建 `feature/*` 分支，修复使用 `fix/*`，发布使用 `release/*`；生产紧急修复从 `main` 创建 `hotfix/*`，合并后同步回 `develop`。提交说明以中文为主，长期分支不强制推送。
 
-技术栈：Java 21、Spring Boot 3.5.13 / Spring Security 6.5.9、Spring JDBC、Flyway 11.20.2、MySQL 8.4、Redis 7；Vue 3、TypeScript、Element Plus、Vite。接口和状态约定见 [接口设计](docs/requirements/XQ20261009-001/ai-devlop-plan/接口设计.md)，25 个接口均以 `/api` 开头。
+技术栈：Java 21、Spring Boot 3.5.13 / Spring Security 6.5.9、Spring JDBC、Flyway 11.20.2、MySQL 8.4、Redis 7；Vue 3、TypeScript、Element Plus、Vite。25 个接口均以 `/api` 开头。
 
 ## 界面设计
 
@@ -106,7 +106,7 @@ Redis 应使用独立实例或账号、私网访问和认证；生产建议 ACL 
 
 数据库备份恢复同样应清空认证命名空间，避免认证版本倒退。数据库与 Redis 凭据通过环境或平台密钥服务注入，使用最小权限；保留 Flyway 迁移所需权限或由独立迁移流程执行。运行日志禁止采集请求体、Authorization、完整 Token 和联系人字段。Nginx 示例访问日志排除查询串及请求头；独立请求级错误日志已关闭，监控应使用安全访问状态、后端运行日志与审计写失败告警。
 
-需求、设计、任务与实际验证结果集中在 [XQ20261009-001](docs/requirements/XQ20261009-001/ai-devlop-implement/实现记录.md)。本地实现与构建不包含生产部署、提交或发布。
+需求、设计、任务与实现记录仅保留在本地 `docs/` 目录，不纳入版本管理。代码已完成首次提交及版本标签发布，生产部署需另行配置。
 
 ## 项目标识
 

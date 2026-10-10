@@ -30,3 +30,6 @@ __pycache__/
 .claude/
 AGENTS.md
 CLAUDE.md
+
+# 本地项目文档
+docs/
